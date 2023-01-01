@@ -5,6 +5,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
@@ -15,7 +18,8 @@ public class DataSourceConfig {
     @ConfigurationProperties(prefix = "com.udacity.datasource")
     public DataSource getDataSource() {
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/plant");
+        dataSourceBuilder.url("jdbc:mysql://localhost:3306/critter");
         return dataSourceBuilder.build();
     }
+
 }
