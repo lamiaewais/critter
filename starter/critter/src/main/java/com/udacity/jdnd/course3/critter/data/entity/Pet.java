@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +20,14 @@ public class Pet {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Customer customer;
+
+    public Pet() {
+    }
+
+    public Pet(long id, Customer customer) {
+        this.id = id;
+        this.customer = customer;
+    }
 
     public long getId() {
         return id;

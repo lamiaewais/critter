@@ -1,10 +1,18 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import com.udacity.jdnd.course3.critter.data.entity.Customer;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
+import com.udacity.jdnd.course3.critter.uti.Converter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.udacity.jdnd.course3.critter.uti.Converter.convertCustomerDtoIntoCustomer;
+import static com.udacity.jdnd.course3.critter.uti.Converter.convertCustomerIntoCustomerDto;
 
 /**
  * Handles web requests related to Users.
@@ -15,20 +23,29 @@ import java.util.Set;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private CustomerService customerService;
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        throw new UnsupportedOperationException();
+        Customer customer = convertCustomerDtoIntoCustomer(customerDTO);
+        Customer savedCustomer = customerService.saveCustomer(customer);
+        customerDTO.setId(savedCustomer.getId());
+        return customerDTO;
     }
 
     @GetMapping("/customer")
-    public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
+    public List<CustomerDTO> getAllCustomers() {
+        return customerService
+                .getAllCustomers()
+                .stream()
+                .map(Converter::convertCustomerIntoCustomerDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        throw new UnsupportedOperationException();
+        return convertCustomerIntoCustomerDto(customerService.findCustomerByPetId(petId));
     }
 
     @PostMapping("/employee")
