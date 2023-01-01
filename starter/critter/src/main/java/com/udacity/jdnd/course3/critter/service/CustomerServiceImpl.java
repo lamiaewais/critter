@@ -1,7 +1,9 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import com.udacity.jdnd.course3.critter.data.entity.Customer;
+import com.udacity.jdnd.course3.critter.exception.PetNotFoundException;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
+import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private PetRepository petRepository;
 
     @Override
     public Customer saveCustomer(Customer customer) {
@@ -23,6 +28,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomerByPetId(Long petId) {
+        if (!petRepository.existsById(petId)) {
+            throw new PetNotFoundException();
+        }
+
         return customerRepository.findCustomerByPetId(petId);
     }
 }
