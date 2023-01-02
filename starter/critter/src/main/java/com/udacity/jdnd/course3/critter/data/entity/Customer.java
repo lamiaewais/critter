@@ -3,6 +3,7 @@ package com.udacity.jdnd.course3.critter.data.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Nationalized;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,12 +21,12 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String name, String phoneNumber, String notes, List<Pet> pets) {
+    public Customer(Long id, String name, String phoneNumber, String notes) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
-        this.pets = pets;
+        this.pets = new ArrayList<>();
     }
 
     public Long getId() {
@@ -66,5 +67,9 @@ public class Customer {
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
+    }
+
+    public void addPet(Pet pet) {
+        this.pets.add(pet);
     }
 }

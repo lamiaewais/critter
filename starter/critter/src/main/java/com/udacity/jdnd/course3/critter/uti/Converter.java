@@ -29,8 +29,7 @@ public class Converter {
                 customerDTO.getId(),
                 customerDTO.getName(),
                 customerDTO.getPhoneNumber(),
-                customerDTO.getNotes(),
-                Collections.emptyList()
+                customerDTO.getNotes()
         );
 
         if (customerDTO.getPetIds() != null) {

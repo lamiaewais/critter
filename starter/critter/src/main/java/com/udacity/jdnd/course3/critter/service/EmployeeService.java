@@ -10,5 +10,5 @@ public interface EmployeeService {
     Employee saveEmployee(Employee employee);
     Employee findEmployeeById(Long id);
     void setEmployeeAvailability(Long id, Set<DayOfWeek> daysAvailable);
-    List<Employee> findEmployeesForService(LocalDate date);
+    List<Employee> findEmployeesForService(DayOfWeek day);
 }

@@ -72,7 +72,7 @@ public class UserController {
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
         return employeeService
-                .findEmployeesForService(employeeDTO.getDate())
+                .findEmployeesForService(employeeDTO.getDate().getDayOfWeek())
                 .stream()
                 .filter(e-> e.getSkillList().containsAll(employeeDTO.getSkills()))
                 .map(Converter::convertEmployeeToEmployeeDto)

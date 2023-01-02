@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -194,8 +195,8 @@ public class CritterFunctionalTest {
 
         Assertions.assertEquals(scheduleDTO.getActivities(), skillSet);
         Assertions.assertEquals(scheduleDTO.getDate(), date);
-        Assertions.assertEquals(scheduleDTO.getEmployeeIds(), employeeList);
-        Assertions.assertEquals(scheduleDTO.getPetIds(), petList);
+        Assertions.assertEquals(new ArrayList<>(scheduleDTO.getEmployeeIds()), employeeList);
+        Assertions.assertEquals(new ArrayList<>(scheduleDTO.getPetIds()), petList);
     }
 
     @Test

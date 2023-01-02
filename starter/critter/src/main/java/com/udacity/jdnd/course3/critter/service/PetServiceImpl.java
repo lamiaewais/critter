@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import com.udacity.jdnd.course3.critter.data.entity.Customer;
 import com.udacity.jdnd.course3.critter.exception.CustomerNotFoundException;
 import com.udacity.jdnd.course3.critter.exception.PetNotFoundException;
 import com.udacity.jdnd.course3.critter.data.entity.Pet;
@@ -26,12 +27,10 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(Pet pet) {
-        if (!customerRepository.existsById(pet.getCustomer().getId())) {
-            System.out.println(pet.getCustomer().getId());
-            throw new CustomerNotFoundException();
-        }
-
-        return petRepository.save(pet);
+        Customer customer = customerRepository.findById(pet.getCustomer().getId()).orElseThrow(CustomerNotFoundException::new);
+        Pet savedPet = petRepository.save(pet);
+        customer.addPet(savedPet);
+        return savedPet;
     }
 
     @Override

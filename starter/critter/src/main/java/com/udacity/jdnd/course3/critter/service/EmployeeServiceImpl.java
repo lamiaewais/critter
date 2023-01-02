@@ -34,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> findEmployeesForService(LocalDate date) {
-        return employeeRepository.findEmployeesForService(date);
+    public List<Employee> findEmployeesForService(DayOfWeek day) {
+        return employeeRepository.findEmployeesForService(day);
     }
 }
