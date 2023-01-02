@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.udacity.jdnd.course3.critter.config.H2Config;
 import com.udacity.jdnd.course3.critter.pet.PetController;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.PetType;
@@ -10,11 +11,16 @@ import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.user.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,7 +35,8 @@ import java.util.stream.IntStream;
  * These tests should all pass once the project is complete.
  */
 @Transactional
-@SpringBootTest(classes = CritterApplication.class)
+@SpringBootTest(classes = {CritterApplication.class, H2Config.class})
+@ActiveProfiles({ "test" })
 public class CritterFunctionalTest {
 
     @Autowired
@@ -188,8 +195,8 @@ public class CritterFunctionalTest {
 
         Assertions.assertEquals(scheduleDTO.getActivities(), skillSet);
         Assertions.assertEquals(scheduleDTO.getDate(), date);
-        Assertions.assertEquals(scheduleDTO.getEmployeeIds(), employeeList);
-        Assertions.assertEquals(scheduleDTO.getPetIds(), petList);
+        Assertions.assertEquals(new ArrayList<>(scheduleDTO.getEmployeeIds()), employeeList);
+        Assertions.assertEquals(new ArrayList<>(scheduleDTO.getPetIds()), petList);
     }
 
     @Test

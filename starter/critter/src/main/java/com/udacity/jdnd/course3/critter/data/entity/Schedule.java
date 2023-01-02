@@ -1,23 +1,28 @@
-package com.udacity.jdnd.course3.critter.schedule;
+package com.udacity.jdnd.course3.critter.data.entity;
 
 import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Represents the form that schedule request and response data takes. Does not map
- * to the database directly.
- */
-public class ScheduleDTO {
-    private long id;
+@Entity
+public class Schedule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @ElementCollection
     private List<Long> employeeIds;
+    @ElementCollection
     private List<Long> petIds;
     private LocalDate date;
+    @ElementCollection
     private Set<EmployeeSkill> activities;
 
-    public ScheduleDTO(long id, List<Long> employeeIds, List<Long> petIds, LocalDate date, Set<EmployeeSkill> activities) {
+    public Schedule() {
+    }
+
+    public Schedule(Long id, List<Long> employeeIds, List<Long> petIds, LocalDate date, Set<EmployeeSkill> activities) {
         this.id = id;
         this.employeeIds = employeeIds;
         this.petIds = petIds;
@@ -25,17 +30,14 @@ public class ScheduleDTO {
         this.activities = activities;
     }
 
-    public ScheduleDTO() {
-    }
-
-    public long getId(){
+    public Long getId() {
         return id;
     }
-    
-    public void setId(long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
-    
+
     public List<Long> getEmployeeIds() {
         return employeeIds;
     }
