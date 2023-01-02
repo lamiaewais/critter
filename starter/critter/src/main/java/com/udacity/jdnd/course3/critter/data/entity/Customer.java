@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.data.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Nationalized
     private String name;
     private String phoneNumber;
     private String notes;

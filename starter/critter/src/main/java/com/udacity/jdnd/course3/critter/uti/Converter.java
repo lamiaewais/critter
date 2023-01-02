@@ -1,9 +1,13 @@
 package com.udacity.jdnd.course3.critter.uti;
 
 import com.udacity.jdnd.course3.critter.data.entity.Customer;
+import com.udacity.jdnd.course3.critter.data.entity.Employee;
 import com.udacity.jdnd.course3.critter.data.entity.Pet;
+import com.udacity.jdnd.course3.critter.data.entity.Schedule;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
+import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
+import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -62,6 +66,44 @@ public class Converter {
                 pet.getNotes(),
                 customer
 
+        );
+    }
+
+    public static ScheduleDTO convertScheduleToScheduleDto(Schedule schedule) {
+        return new ScheduleDTO(
+                schedule.getId(),
+                schedule.getEmployeeIds(),
+                schedule.getPetIds(),
+                schedule.getDate(),
+                schedule.getActivities()
+        );
+    }
+
+    public static Schedule convertScheduleDtoToSchedule(ScheduleDTO schedule) {
+        return new Schedule(
+                schedule.getId(),
+                schedule.getEmployeeIds(),
+                schedule.getPetIds(),
+                schedule.getDate(),
+                schedule.getActivities()
+        );
+    }
+
+    public static EmployeeDTO convertEmployeeToEmployeeDto(Employee employee) {
+        return new EmployeeDTO(
+                employee.getId(),
+                employee.getName(),
+                employee.getSkillList(),
+                employee.getDaysAvailable()
+        );
+    }
+
+    public static Employee convertEmployeeDtoToEmployee(EmployeeDTO employee) {
+        return new Employee(
+                employee.getId(),
+                employee.getName(),
+                employee.getSkills(),
+                employee.getDaysAvailable()
         );
     }
 }
